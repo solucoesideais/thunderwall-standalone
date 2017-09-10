@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FileSection extends Model
+class Section extends Model
 {
     //
 }

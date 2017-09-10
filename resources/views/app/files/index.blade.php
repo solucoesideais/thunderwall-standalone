@@ -10,6 +10,9 @@
                     <div class="panel-body">
                         @foreach($files as $file)
                             {{ $file->name }}<br/>
+                            {{ $file->path('/sections') }}<br/>
+                            <hr/>
+                            <br/>
                         @endforeach
                     </div>
                 </div>

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\File;
 use Tests\AuthenticatedTestCase;
 
-class FilesTest extends AuthenticatedTestCase
+class FileSectionsTest extends AuthenticatedTestCase
 {
     /**
      * @test
