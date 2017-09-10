@@ -1,5 +1,6 @@
 ## Thunderwall Stand Alone
 
+![Build](https://travis-ci.org/solucoesideais/thunderwall-standalone.svg?branch=master)
 
 ## License
 
