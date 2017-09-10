@@ -15,7 +15,11 @@ class CreateFileSectionsTable extends Migration
     {
         Schema::create('file_sections', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('content');
+            $table->unsignedInteger('file_id');
             $table->timestamps();
+
+            $table->foreign('file_id')->references('file')->on('id');
         });
     }
 
