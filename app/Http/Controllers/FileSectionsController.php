@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use Illuminate\Http\Request;
 
-class FilesController extends Controller
+class FileSectionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FilesController extends Controller
      */
     public function index()
     {
-        return view('app.files.index', ['files' => File::all()]);
+
     }
 
     /**
@@ -36,9 +36,16 @@ class FilesController extends Controller
      */
     public function store(Request $request, File $file)
     {
-        $file = $file->create($request->only(['name', 'path']));
+        $sections = collect($request->get('sections'));
+        $sections->each(function ($section) use ($file) {
+            // Validate
 
-        return redirect($file->path('/sections/create'));
+            // Store
+            $file->sections()->create($section);
+        });
+//        $file = $file->create($request->only(['name', 'path']));
+
+        return redirect($file->path('/sections'));
     }
 
     /**

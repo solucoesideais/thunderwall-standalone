@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/files', 'FilesController');
+Route::post('/files/{file}/sections', 'FileSectionsController@store');
