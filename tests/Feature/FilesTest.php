@@ -17,7 +17,20 @@ class FilesTest extends AuthenticatedTestCase
         $this->get('/files')
             ->assertSuccessful()
             ->assertSeeText(e($file->name))
+            ->assertSeeText($file->path)
             ->assertSee($file->path('/sections'));
+    }
+
+    /**
+     * @test
+     * @group f
+     */
+    public function a_user_can_see_the_files_form()
+    {
+        $this->get('/files/create')
+            ->assertSuccessful()
+            ->assertSeeField('name')
+            ->assertSee('path');
     }
 
     /**

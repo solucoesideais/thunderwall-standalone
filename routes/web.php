@@ -19,5 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/files', 'FilesController');
-Route::post('/files/{file}/sections', 'FileSectionsController@store');
+
+Route::group(['namespace' => 'Files'], function () {
+    Route::post('/files/retrieve', 'RetrievesFilesController@store');
+    Route::resource('/files', 'FilesController');
+    Route::post('/files/{file}/sections', 'FileSectionsController@store');
+});

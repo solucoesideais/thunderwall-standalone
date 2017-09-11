@@ -19,5 +19,11 @@ abstract class TestCase extends BaseTestCase
 
             return $this;
         });
+
+        TestResponse::macro('assertSeeField', function ($field) {
+            $this->assertSee(sprintf('name="%s"', $field));
+
+            return $this;
+        });
     }
 }

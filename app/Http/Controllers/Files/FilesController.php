@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Files;
 
+use App\Http\Controllers\Controller;
 use App\Models\File;
 use Illuminate\Http\Request;
 
-class FileSectionsController extends Controller
+class FilesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class FileSectionsController extends Controller
      */
     public function index()
     {
-
+        return view('app.files.index', ['files' => File::all()]);
     }
 
     /**
@@ -24,7 +25,7 @@ class FileSectionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.files.create');
     }
 
     /**
@@ -36,16 +37,9 @@ class FileSectionsController extends Controller
      */
     public function store(Request $request, File $file)
     {
-        $sections = collect($request->get('sections'));
-        $sections->each(function ($section) use ($file) {
-            // Validate
+        $file = $file->create($request->only(['name', 'path']));
 
-            // Store
-            $file->sections()->create($section);
-        });
-//        $file = $file->create($request->only(['name', 'path']));
-
-        return redirect($file->path('/sections'));
+        return redirect($file->path('/sections/create'));
     }
 
     /**
