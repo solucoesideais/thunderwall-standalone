@@ -9,6 +9,7 @@ class FilesTest extends AuthenticatedTestCase
 {
     /**
      * @test
+     * @group a
      */
     public function a_user_can_list_files()
     {
@@ -18,19 +19,18 @@ class FilesTest extends AuthenticatedTestCase
             ->assertSuccessful()
             ->assertSeeText(e($file->name))
             ->assertSeeText($file->path)
-            ->assertSee($file->path('/sections'));
+            ->assertSeeLink($file->route('/sections'));
     }
 
     /**
      * @test
-     * @group f
      */
     public function a_user_can_see_the_files_form()
     {
         $this->get('/files/create')
             ->assertSuccessful()
-            ->assertSeeField('name')
-            ->assertSee('path');
+            ->assertSeeInput('name')
+            ->assertSeeInput('path');
     }
 
     /**

@@ -29,18 +29,22 @@ class FileTest extends TestCase
      */
     public function a_file_has_a_path()
     {
-        $this->assertEquals('/files/1', $this->file->path());
-        $this->assertEquals('/files/1/something', $this->file->path('/something'));
+        $this->assertEquals('/files/1', $this->file->route());
+        $this->assertEquals('/files/1/something', $this->file->route('/something'));
     }
 
     /**
      * @test
      */
-    public function a_file_has_many_sections()
+    public function a_file_has_content()
     {
-        create(Section::class, ['file_id' => $this->file->id]);
+        create(Section::class, ['content' => 'section 1', 'file_id' => $this->file->id]);
+        create(Section::class, ['content' => 'section 2', 'file_id' => $this->file->id]);
 
-        $this->assertInstanceOf(Collection::class, $this->file->sections);
-        $this->assertInstanceOf(Section::class, $this->file->sections->first());
+        // @TODO: deal with file separator
+        $this->assertEquals(
+            'section 1' . File::CONTENT_SEPARATOR . 'section 2',
+            $this->file->content()
+        );
     }
 }

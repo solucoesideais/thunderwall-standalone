@@ -39,7 +39,7 @@ class FilesController extends Controller
     {
         $file = $file->create($request->only(['name', 'path']));
 
-        return redirect($file->path('/sections/create'));
+        return redirect($file->route('/sections/create'));
     }
 
     /**

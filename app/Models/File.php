@@ -11,15 +11,24 @@ use Illuminate\Database\Eloquent\Model;
  */
 class File extends Model
 {
+    const CONTENT_SEPARATOR = PHP_EOL . PHP_EOL;
+
     protected $fillable = ['name', 'path'];
 
-    public function path($path = null)
+    public function route($subroute = null)
     {
-        return sprintf('/files/%s%s', $this->id, $path);
+        return sprintf('/files/%s%s', $this->id, $subroute);
     }
 
     public function sections()
     {
         return $this->hasMany(Section::class);
+    }
+
+    public function content()
+    {
+        $this->loadMissing('sections');
+
+        return $this->sections->implode('content', static::CONTENT_SEPARATOR);
     }
 }

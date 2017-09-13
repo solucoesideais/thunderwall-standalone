@@ -22,8 +22,8 @@
                                     <td>{{ $file->name }}</td>
                                     <td>{{ $file->path }}</td>
                                     <td>
-                                        <a href="{{$file->path('/sections')}}">
-                                            <i class="fa fa-pencil"></i>
+                                        <a href="{{$file->route('/sections')}}">
+                                            <i class="fa fa-file"></i>
                                         </a>
                                     </td>
                                 </tr>

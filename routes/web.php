@@ -23,5 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['namespace' => 'Files'], function () {
     Route::post('/files/retrieve', 'RetrievesFilesController@store');
     Route::resource('/files', 'FilesController');
+    Route::get('/files/{file}/sections', 'FileSectionsController@index');
     Route::post('/files/{file}/sections', 'FileSectionsController@store');
 });

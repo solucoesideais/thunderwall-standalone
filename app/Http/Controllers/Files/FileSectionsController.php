@@ -11,11 +11,12 @@ class FileSectionsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param File $file
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(File $file)
     {
-
+        return view('app.files.sections.index', ['file' => $file]);
     }
 
     /**
@@ -46,7 +47,7 @@ class FileSectionsController extends Controller
         });
 //        $file = $file->create($request->only(['name', 'path']));
 
-        return redirect($file->path('/sections'));
+        return redirect($file->route('/sections'));
     }
 
     /**
