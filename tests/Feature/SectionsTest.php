@@ -8,41 +8,62 @@ use Tests\AuthenticatedTestCase;
 
 class SectionsTest extends AuthenticatedTestCase
 {
+
+    /**
+     * @var File
+     */
+    protected $file;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->file = create(File::class);
+    }
+
     /**
      * @test
      */
     public function a_user_can_create_multiple_sections_in_a_file()
     {
-        $file = create(File::class);
         $sections = [
             ['content' => 'first section'],
             ['content' => 'second section'],
             ['content' => 'third section']
         ];
 
-        $this->post($file->route('/sections'), ['sections' => $sections])
+        $this->post($this->file->route('/sections'), ['sections' => $sections])
             ->assertFound();
 
         foreach ($sections as $section) {
-            $this->assertDatabaseHas('sections', $section + ['file_id' => $file->id]);
+            $this->assertDatabaseHas('sections', $section + ['file_id' => $this->file->id]);
         }
     }
 
     /**
      * @test
-     * @group f
      */
     public function a_user_can_see_the_whole_file()
     {
-        $file = create(File::class);
-        $sections = create(Section::class, ['file_id' => $file->id], 3);
 
-        $response = $this->get($file->route('/sections'))
+        $sections = create(Section::class, ['file_id' => $this->file->id], 3);
+
+        $response = $this->get($this->file->route('/sections'))
             ->assertSuccessful()
-            ->assertSeeLink($file->route('/sections/edit'));
+            ->assertSeeLink($this->file->route('/sections/edit'));
 
         foreach ($sections as $section) {
             $response->assertSeeText(e($section->content));
         }
+    }
+
+    /**
+     * @test
+     */
+    public function empty_file_notice()
+    {
+        $this->get($this->file->route('/sections'))
+            ->assertSuccessful()
+            ->assertSeeText('It appears this file is still empty');
     }
 }

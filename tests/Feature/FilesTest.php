@@ -9,7 +9,6 @@ class FilesTest extends AuthenticatedTestCase
 {
     /**
      * @test
-     * @group a
      */
     public function a_user_can_list_files()
     {

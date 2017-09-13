@@ -13,6 +13,8 @@
                             <tr>
                                 <td>{{ __('Name') }}</td>
                                 <td>{{ __('Path') }}</td>
+                                <td>{{ __('Sync') }}</td>
+                                <td></td>
                                 <td></td>
                             </tr>
                             </thead>
@@ -21,9 +23,15 @@
                                 <tr>
                                     <td>{{ $file->name }}</td>
                                     <td>{{ $file->path }}</td>
+                                    <td>{{ $file->isSynchronized }}</td>
                                     <td>
-                                        <a href="{{$file->route('/sections')}}">
+                                        <a class="btn btn-primary" href="{{$file->route('/sections')}}">
                                             <i class="fa fa-file"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger disabled" href="#">
+                                            <i class="fa fa-eraser"></i>
                                         </a>
                                     </td>
                                 </tr>

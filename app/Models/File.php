@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int id
  * @property Collection sections
+ * @property string path
  */
 class File extends Model
 {
