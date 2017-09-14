@@ -27,9 +27,13 @@
                                         @if($file->synchronized)
                                             <i class="fa fa-check text-success"></i>
                                         @else
-                                            <a href="#" class="btn btn-danger">
-                                                <i class="fa fa-warning"></i>
-                                            </a>
+                                            <form method="POST" action="{{ $file->route('/commit') }}">
+                                                {{ csrf_field() }}
+
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa fa-warning"></i>
+                                                </button>
+                                            </form>
                                         @endif
                                     </td>
                                     <td>
