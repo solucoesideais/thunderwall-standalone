@@ -29,9 +29,17 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace' => 'Files', 'middleware' => 'auth'], function () {
+
+    // Reverse Engineering File Route
     Route::post('/files/retrieve', 'RetrievesFilesController@store');
+
+    // File REST Route
+    Route::post('/files/{file}/commit', 'CommitsFileController@commit');
     Route::resource('/files', 'FilesController');
+
+    // File Section Routes
     Route::get('/files/{file}/sections', 'FileSectionsController@index');
+    Route::get('/files/{file}/sections/edit', 'FileSectionsController@edit');
     Route::post('/files/{file}/sections', 'FileSectionsController@store');
 });
 

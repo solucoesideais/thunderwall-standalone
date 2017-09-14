@@ -60,10 +60,24 @@ class SectionsTest extends AuthenticatedTestCase
     /**
      * @test
      */
-    public function empty_file_notice()
+    public function show_notice_when_file_is_empty()
     {
         $this->get($this->file->route('/sections'))
             ->assertSuccessful()
             ->assertSeeText('It appears this file is still empty');
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_see_the_section_editor()
+    {
+        $section = create(Section::class, ['file_id' => $this->file->id]);
+
+        $this->get($this->file->route('/sections/edit'))
+            ->assertSuccessful()
+            ->assertSeeText($section->content)
+            ->assertSeeInput('sections[0][content]')
+            ->assertSeeInput('sections[1][content]');
     }
 }

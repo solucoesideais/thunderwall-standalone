@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\File;
+use App\Models\Section;
+use Facades\App\Disk;
 use Tests\AuthenticatedTestCase;
 
 class FilesTest extends AuthenticatedTestCase
@@ -44,5 +46,23 @@ class FilesTest extends AuthenticatedTestCase
             ->assertRedirect('/files/1/sections/create');
 
         $this->assertDatabaseHas('files', $file->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_commit_a_file()
+    {
+        $path = __DIR__ . '/my-file';
+        $file = create(File::class, ['path' => $path]);
+        create(Section::class, ['content' => 'my file content', 'file_id' => $file->id]);
+
+        $this->post('/files/1/commit')
+            ->assertFound()
+            ->assertSessionHas('success', 'File successfully written!');
+
+        $this->assertFileExists($path);
+        Disk::match($file);
+        @unlink($file->path);
     }
 }

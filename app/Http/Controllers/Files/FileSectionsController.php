@@ -38,14 +38,15 @@ class FileSectionsController extends Controller
      */
     public function store(Request $request, File $file)
     {
+        $file->sections()->delete();
+
         $sections = collect($request->get('sections'));
         $sections->each(function ($section) use ($file) {
             // @TODO: Validate
-
-            // Store
-            $file->sections()->create($section);
+            if ($this->validSection($section)) {
+                $file->sections()->create($section);
+            }
         });
-//        $file = $file->create($request->only(['name', 'path']));
 
         return redirect($file->route('/sections'));
     }
@@ -64,12 +65,14 @@ class FileSectionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param File $file
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(File $file)
     {
-        //
+        $file->load('sections');
+
+        return view('app.files.sections.edit', compact('file'));
     }
 
     /**
@@ -93,5 +96,10 @@ class FileSectionsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validSection($section)
+    {
+        return isset($section['content']) && !empty($section['content']);
     }
 }
