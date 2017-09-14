@@ -6,12 +6,11 @@ use App\Models\File;
 use App\Models\Section;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\DatabaseTestCase;
 use Tests\TestCase;
 
-class FileTest extends TestCase
+class FileTest extends DatabaseTestCase
 {
-    use RefreshDatabase;
-
     /**
      * @var File
      */

@@ -5,12 +5,11 @@ namespace Tests\Integration;
 use App\FileManager;
 use App\Models\File;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\DatabaseTestCase;
 use Tests\TestCase;
 
-class CommitFileTest extends TestCase
+class CommitFileTest extends DatabaseTestCase
 {
-    use RefreshDatabase;
-
     /**
      * @test
      */

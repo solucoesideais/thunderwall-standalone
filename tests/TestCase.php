@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\Response;
@@ -31,5 +32,12 @@ abstract class TestCase extends BaseTestCase
 
             return $this;
         });
+    }
+
+    public function signIn(User $user = null)
+    {
+        $user = $user ?: create(User::class);
+
+        return $this->actingAs($user);
     }
 }

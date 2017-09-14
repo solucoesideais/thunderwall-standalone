@@ -5,9 +5,9 @@ namespace Tests;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-abstract class AuthenticatedTestCase extends TestCase
+abstract class AuthenticatedTestCase extends DatabaseTestCase
 {
-    use CreatesApplication, RefreshDatabase;
+    use CreatesApplication;
 
     /**
      * @var User
