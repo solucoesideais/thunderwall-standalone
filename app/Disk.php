@@ -16,7 +16,11 @@ class Disk
 
     public function checksum(File $file)
     {
-        return md5_file($file->path);
+        if (is_file($file->path)) {
+            return md5_file($file->path);
+        }
+
+        return md5('');
     }
 
     public function match(File $file)

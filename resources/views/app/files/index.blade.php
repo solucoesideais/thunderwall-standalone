@@ -14,7 +14,7 @@
                                 <td>{{ __('Name') }}</td>
                                 <td>{{ __('Path') }}</td>
                                 <td>{{ __('Sync') }}</td>
-                                <td></td>
+                                <td>{{ __('Open') }}</td>
                                 <td></td>
                             </tr>
                             </thead>
@@ -23,7 +23,15 @@
                                 <tr>
                                     <td>{{ $file->name }}</td>
                                     <td>{{ $file->path }}</td>
-                                    <td>{{ $file->isSynchronized }}</td>
+                                    <td>
+                                        @if($file->synchronized)
+                                            <i class="fa fa-check text-success"></i>
+                                        @else
+                                            <a href="#" class="btn btn-danger">
+                                                <i class="fa fa-warning"></i>
+                                            </a>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a class="btn btn-primary" href="{{$file->route('/sections')}}">
                                             <i class="fa fa-file"></i>

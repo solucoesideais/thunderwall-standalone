@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Facades\App\Disk;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,6 +38,13 @@ class File extends Model
 
     public function getChecksumAttribute()
     {
+        // @TODO: Maybe improve performance by adding a checksum column to the file table and keeping it up to date with content change
+        // instead of recalculating it real time.
         return md5($this->content());
+    }
+
+    public function getSynchronizedAttribute()
+    {
+        return Disk::match($this);
     }
 }
