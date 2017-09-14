@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property Collection sections
  * @property string path
+ * @property string checksum
  */
 class File extends Model
 {
@@ -30,6 +31,12 @@ class File extends Model
     {
         $this->loadMissing('sections');
 
+        // @TODO: move it to FileContent or FileManager class
         return $this->sections->implode('content', static::CONTENT_SEPARATOR);
+    }
+
+    public function getChecksumAttribute()
+    {
+        return md5($this->content());
     }
 }

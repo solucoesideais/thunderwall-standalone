@@ -2,26 +2,24 @@
 
 namespace Tests\Integration;
 
-use App\FileManager;
+use Facades\App\Disk;
 use App\Models\File;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DatabaseTestCase;
-use Tests\TestCase;
 
-class CommitFileTest extends DatabaseTestCase
+class WriteFileTest extends DatabaseTestCase
 {
     /**
      * @test
      */
-    public function committing_a_file_will_create_it()
+    public function writing_a_file_will_create_it()
     {
-        $path = __DIR__ . '/committed';
+        $path = __DIR__ . '/new-file';
         $this->assertFileNotExists($path);
 
         $file = File::create(['name' => 'Commit', 'path' => $path]);
         $file->sections()->create(['content' => 'file content']);
 
-        (new FileManager($file))->commit();
+        Disk::write($file);
 
         $this->assertFileExists($file->path);
         $this->assertEquals($file->content(), file_get_contents($file->path));
