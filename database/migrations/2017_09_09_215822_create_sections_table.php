@@ -19,7 +19,7 @@ class CreateSectionsTable extends Migration
             $table->unsignedInteger('file_id');
             $table->timestamps();
 
-            $table->foreign('file_id')->references('id')->on('file');
+            $table->foreign('file_id')->references('id')->on('files');
         });
     }
 
