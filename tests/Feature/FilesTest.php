@@ -43,7 +43,7 @@ class FilesTest extends AuthenticatedTestCase
 
         $this->post('/files', $file->toArray())
             ->assertFound()
-            ->assertRedirect('/files/1/sections/create');
+            ->assertRedirect('/files/1/sections');
 
         $this->assertDatabaseHas('files', $file->toArray());
     }
