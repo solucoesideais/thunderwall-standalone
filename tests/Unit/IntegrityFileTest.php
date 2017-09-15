@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration;
+namespace Tests\Unit;
 
 use Facades\App\Disk;
 use App\Models\File;
