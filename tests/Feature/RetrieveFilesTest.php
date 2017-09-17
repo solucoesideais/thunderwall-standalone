@@ -10,7 +10,7 @@ class RetrieveFilesTest extends AuthenticatedTestCase
     /**
      * @test
      */
-    public function a_user_can_list_files()
+    public function a_user_can_retrieve_a_file_from_the_hard_drive()
     {
         $path = realpath(__DIR__ . '/stub/retrieve.stub');
 
@@ -20,5 +20,27 @@ class RetrieveFilesTest extends AuthenticatedTestCase
 
         $this->assertDatabaseHas('files', ['path' => $path]);
         $this->assertDatabaseHas('sections', ['content' => file_get_contents($path)]);
+    }
+
+//    /**
+//     * @test
+//     * @group f
+//     */
+//    public function test_file_does_not_exist()
+//    {
+//        $this->post('/files/retrieve', ['path' => __DIR__ . '/not-a-file'])
+//            ->assertFound()
+//            ->assertSessionHasErrorsIn();
+//    }
+
+    /**
+     * @test
+     * @group f
+     */
+    public function a_user_can_see_the_form_for_retrieving_existing_file()
+    {
+        $this->get('/files/retrieve')
+            ->assertSuccessful()
+            ->assertSeeInput('path');
     }
 }

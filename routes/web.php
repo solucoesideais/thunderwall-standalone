@@ -31,6 +31,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['namespace' => 'Files', 'middleware' => 'auth'], function () {
 
     // Reverse Engineering File Route
+    Route::get('/files/retrieve', 'RetrievesFilesController@index');
     Route::post('/files/retrieve', 'RetrievesFilesController@store');
 
     // File REST Route
