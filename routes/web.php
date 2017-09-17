@@ -28,6 +28,8 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/version', 'VersionController@index');
+
 Route::group(['namespace' => 'Files', 'middleware' => 'auth'], function () {
 
     // Reverse Engineering File Route

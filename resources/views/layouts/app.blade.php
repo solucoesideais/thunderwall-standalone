@@ -29,7 +29,8 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name') }}
+                    <small class="text-muted">{{ config('app.version') }}</small>
                 </a>
             </div>
 
@@ -41,41 +42,41 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
+
                     @guest
                         <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
                         {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
+                    @else
+                        @if($updateAvailable)
+                            <li><a href="/version" class="alert-warning">
+                                    <i class="fa fa-warning text-warning"></i> <span>{{ __('Update') }}</span></a>
                             </li>
-                            @endguest
+                        @endif
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </div>
     </nav>
-
-    <header class="header text-center" style="padding-bottom: 16px">
-        @if($root != 'root')
-            <span class="alert alert-warning">{!! __('Application running as <strong>:user</strong>. File permission may not work.', ['user' => $root]) !!}</span>
-        @endif
-    </header>
 
     @yield('content')
 </div>
