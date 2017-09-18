@@ -7,6 +7,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ __('Application Update') }}</div>
 
+                    @if($output)
+                        <div class="alert alert-info">
+                            {{ $output }}
+                        </div>
+                    @endif
+
                     <div class="panel-body">
                         @if($release['tag_name'] == config('app.version'))
                             <h4 class="text-success">{{ __('Your application is up to date!') }}</h4>

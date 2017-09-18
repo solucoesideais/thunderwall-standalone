@@ -30,6 +30,7 @@ class LayoutComposer
         $dayInMinutes = Carbon::MINUTES_PER_HOUR * Carbon::HOURS_PER_DAY;
 
         return Cache::remember('updateAvailable', $dayInMinutes, function () {
+            return true;
             $latest = (new GitHub)->latestVersion();
 
             return version_compare($latest, config('app.version')) === 1;
