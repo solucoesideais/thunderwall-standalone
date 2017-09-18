@@ -17,7 +17,8 @@ class VersionController extends Controller
 
     public function update()
     {
-        $version = '0.0.1';
+        $version = (new GitHub())->latestVersion();
+        
         $envoy = sprintf(' run deploy --version=%s', $version);
         $command = base_path('/vendor/bin/envoy') . $envoy;
 
