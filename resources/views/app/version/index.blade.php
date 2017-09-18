@@ -9,7 +9,7 @@
 
                     @if(session('output'))
                         <div class="alert alert-info">
-                            {{ session('output') }}
+                            {!!  nl2br(session('output')) !!}
                         </div>
                     @endif
 
