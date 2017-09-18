@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ __('Application Update') }}</div>
 
-                    @if($output)
+                    @isset($output)
                         <div class="alert alert-info">
                             {{ $output }}
                         </div>
