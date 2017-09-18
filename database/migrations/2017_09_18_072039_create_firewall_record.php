@@ -15,7 +15,7 @@ class CreateFirewallRecord extends Migration
     {
         $file = \App\Models\File::create([
             'name' => 'Firewall Settings',
-            'path' => \App\Models\Expressive\Firewall::FILTER['path']
+            'path' => '/etc/rc.d/rc.firewall'
         ]);
 
         $file->sections()->create(['content' => '# Your firewall settings.']);
