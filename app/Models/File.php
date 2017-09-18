@@ -25,7 +25,7 @@ class File extends Model
 
     public function sections()
     {
-        return $this->hasMany(Section::class);
+        return $this->hasMany(Section::class, 'file_id');
     }
 
     public function content()

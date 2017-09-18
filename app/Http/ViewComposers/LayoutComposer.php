@@ -20,11 +20,17 @@ class LayoutComposer
         $view->with('updateAvailable', $this->isUpdateAvailable());
     }
 
+    /**
+     * Check (once a day) if there's any update available via GitHub API.
+     *
+     * @return bool
+     */
     protected function isUpdateAvailable()
     {
         $dayInMinutes = Carbon::MINUTES_PER_HOUR * Carbon::HOURS_PER_DAY;
 
         return Cache::remember('updateAvailable', $dayInMinutes, function () {
+            return false;
             $latest = (new GitHub)->latestVersion();
 
             return version_compare($latest, config('app.version')) === 1;

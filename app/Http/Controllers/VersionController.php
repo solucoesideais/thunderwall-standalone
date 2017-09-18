@@ -12,4 +12,9 @@ class VersionController extends Controller
 
         return view('app.version.index', compact('release'));
     }
+
+    public function update()
+    {
+
+    }
 }

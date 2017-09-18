@@ -35,7 +35,6 @@ class RetrieveFilesTest extends AuthenticatedTestCase
 
     /**
      * @test
-     * @group f
      */
     public function a_user_can_see_the_form_for_retrieving_existing_file()
     {
