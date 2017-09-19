@@ -27,9 +27,7 @@ class VersionController extends Controller
 
     protected function runEnvoy()
     {
-        $version = (new GitHub())->latestVersion();
-
-        $command = base_path('/vendor/bin/envoy') . sprintf(' run deploy --tag=%s', $version);
+        $command = base_path('/vendor/bin/envoy') . ' run deploy';
         $directory = base_path();
 
         $process = new Process($command);
