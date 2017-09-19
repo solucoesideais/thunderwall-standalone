@@ -6,13 +6,7 @@
 
         <ul class="dropdown-menu" role="menu">
             <li>
-                <a href="/files">{{ __('List') }}</a>
-            </li>
-            <li>
-                <a href="/files/create">{{ __('New') }}</a>
-            </li>
-            <li>
-                <a href="/files/retrieve">{{ __('Retrieve from Disk') }}</a>
+                <a href="/modules/firewall/edit">{{ __('Firewall') }}</a>
             </li>
         </ul>
     </li>
