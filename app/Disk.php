@@ -29,12 +29,25 @@ class Disk
         return $this->checksum($file) == $file->checksum;
     }
 
-    protected function touch($path)
+    protected function touch($filepath)
     {
         try {
-            touch($path);
+            $this->makeFoldersForFile($filepath);
+            touch($filepath);
         } catch (\ErrorException $e) {
-            throw new PermissionDeniedException($path);
+            throw new PermissionDeniedException($filepath);
+        }
+    }
+
+    protected function makeFoldersForFile($filepath)
+    {
+        try {
+            $directory = dirname($filepath);
+            if (!is_dir($directory)) {
+                mkdir($directory, 0755, true);
+            }
+        } catch (\ErrorException $e) {
+            throw new PermissionDeniedException($filepath);
         }
     }
 }

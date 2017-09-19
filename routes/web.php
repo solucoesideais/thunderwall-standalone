@@ -31,36 +31,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/version', 'VersionController@index');
 Route::post('/version/update', 'VersionController@update');
 
-Route::group(['namespace' => 'Modules', 'prefix' => 'module', 'middleware' => 'auth'], function () {
+Route::group(['namespace' => 'Modules', 'prefix' => 'modules', 'middleware' => 'auth'], function () {
 
-    // Reverse Engineering File Route
-    Route::get('/files/retrieve', 'RetrievesFilesController@index');
-    Route::post('/files/retrieve', 'RetrievesFilesController@store');
-
-    // File REST Route
-    Route::post('/files/{file}/commit', 'CommitsFileController@commit');
-    Route::resource('/files', 'FilesController');
-
-    // File Section Routes
-    Route::get('/files/{file}/sections', 'FileSectionsController@index');
-    Route::get('/files/{file}/sections/edit', 'FileSectionsController@edit');
-    Route::post('/files/{file}/sections', 'FileSectionsController@store');
-});
-
-Route::group(['namespace' => 'Files', 'middleware' => 'auth'], function () {
-
-    // Reverse Engineering File Route
-    Route::get('/files/retrieve', 'RetrievesFilesController@index');
-    Route::post('/files/retrieve', 'RetrievesFilesController@store');
-
-    // File REST Route
-    Route::post('/files/{file}/commit', 'CommitsFileController@commit');
-    Route::resource('/files', 'FilesController');
-
-    // File Section Routes
-    Route::get('/files/{file}/sections', 'FileSectionsController@index');
-    Route::get('/files/{file}/sections/edit', 'FileSectionsController@edit');
-    Route::post('/files/{file}/sections', 'FileSectionsController@store');
+    // Firewall Module
+    Route::get('/firewall/edit', 'FirewallsController@edit');
+    Route::put('/firewall/{firewall}', 'FirewallsController@update');
 });
 
 Route::get('{any}', 'RedirectsController@index')->where('any', '.*');

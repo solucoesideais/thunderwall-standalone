@@ -4,8 +4,8 @@
 
     @if ($tag)
         php artisan down
-        git fetch --tags
-        git checkout {{ $tag }}
+        git pull
+        composer install --no-dev --no-interaction
         php artisan migrate
         php artisan up
     @endif

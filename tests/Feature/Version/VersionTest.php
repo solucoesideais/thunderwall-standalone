@@ -14,7 +14,7 @@ class VersionTest extends AuthenticatedTestCase
     public function a_user_can_see_when_there_is_an_update()
     {
         Config::set('app.version', '0.0.0');
-        Cache::put('updateAvailable', '0.0.1');
+        Cache::put('updateAvailable', '0.0.1', 1);
 
         $this->get('/home')
             ->assertSeeText('Update')

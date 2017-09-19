@@ -6,6 +6,8 @@ use App\Models\File;
 
 class Firewall extends File
 {
+    use HasParentModel;
+
     const FILTER = ['path' => '/etc/rc.d/rc.firewall'];
 
     protected static function boot()

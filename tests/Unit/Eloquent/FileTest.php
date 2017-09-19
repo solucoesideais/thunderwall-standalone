@@ -28,8 +28,8 @@ class FileTest extends DatabaseTestCase
      */
     public function a_file_has_a_path()
     {
-        $this->assertEquals('/files/1', $this->file->route());
-        $this->assertEquals('/files/1/something', $this->file->route('/something'));
+        $this->assertEquals("/files/{$this->file->id}", $this->file->route());
+        $this->assertEquals("/files/{$this->file->id}/something", $this->file->route('/something'));
     }
 
     /**
