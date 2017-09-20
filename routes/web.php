@@ -29,7 +29,7 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/version', 'VersionController@index');
-Route::post('/version/update', 'VersionController@update');
+Route::post('/version', 'VersionController@update');
 
 Route::group(['namespace' => 'Modules', 'prefix' => 'modules', 'middleware' => 'auth'], function () {
 

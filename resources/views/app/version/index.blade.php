@@ -17,7 +17,7 @@
                         @if($release['tag_name'] == config('app.version'))
                             <h4 class="text-success">{{ __('Your application is up to date!') }}</h4>
                         @else
-                            <form action="/version/update" method="POST">
+                            <form action="/version" method="POST">
                                 {{ csrf_field() }}
 
                                 <h4>{{ __('Version :v', ['v' => $release['tag_name']]) }}</h4>

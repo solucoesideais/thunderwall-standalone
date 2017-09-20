@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Process;
 use App\Support\GitHub;
+use Facades\App\Process;
 use Illuminate\Support\Facades\Cache;
 
 class VersionController extends Controller

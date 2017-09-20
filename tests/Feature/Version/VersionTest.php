@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Version;
 
+use Facades\App\Process;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Tests\AuthenticatedTestCase;
@@ -28,5 +29,19 @@ class VersionTest extends AuthenticatedTestCase
     {
         $this->get('/home')
             ->assertDontSeeText('Update');
+    }
+
+    /**
+     * @test
+     */
+    public function test_auto_deploy()
+    {
+        Cache::put('updateAvailable', 'something', 1);
+
+        $this->post('/version')
+            ->assertFound();
+
+        Process::assertExecuted(base_path('/vendor/bin/envoy') . ' run deploy');
+        $this->assertEmpty(Cache::get('updateAvailable'));
     }
 }
