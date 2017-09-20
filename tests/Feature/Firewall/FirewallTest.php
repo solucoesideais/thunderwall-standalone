@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Expressive\Firewall;
+use Facades\App\Disk;
 use Facades\App\Process;
 use Tests\AuthenticatedTestCase;
 
@@ -31,6 +32,7 @@ class FirewallTest extends AuthenticatedTestCase
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('sections', ['file_id' => $file->id, 'content' => $content]);
+        Disk::assertFileCreated('/etc/rc.d/rc.firewall');
         Process::assertExecuted('/etc/rc.d/rc.firewall');
     }
 }

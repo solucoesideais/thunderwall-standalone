@@ -3,22 +3,43 @@
 namespace Tests\Fake;
 
 use App\Disk;
+use App\Models\File;
+use PHPUnit\Framework\Assert as PHPUnit;
 
 class DiskFake extends Disk
 {
+    /**
+     * @var array
+     */
+    protected $files = [];
+
+    public function write(File $file)
+    {
+        $this->files[] = $file;
+    }
+
+    public function assertFileCreated($path, $content = null)
+    {
+        PHPUnit::assertInstanceOf(
+            File::class,
+            $this->searchFile($path, $content),
+            "Expected file on [$path] was not created"
+        );
+    }
 
     /**
-     * @TODO: maybe not touch the file at all and add a method ot assertFileCreated?
-     * @param $filepath
+     * @param $path
+     * @param $content
+     * @return mixed
      */
-    protected function touch($filepath)
+    private function searchFile($path, $content)
     {
-        // Remove the trailing '/'
-        $filepath = ltrim($filepath, '/');
+        return collect($this->files)->first(function ($file) use ($path, $content) {
+            if (is_null($content)) {
+                return $file->path == $path;
+            }
 
-        // Store the file in local storage/tests folder
-        $filepath = storage_path("tests/$filepath");
-
-        parent::touch($filepath);
+            return $file->path == $path && $file->content == $content;
+        });
     }
 }
