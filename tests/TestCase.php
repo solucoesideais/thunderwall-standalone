@@ -3,9 +3,14 @@
 namespace Tests;
 
 use App\Models\User;
+use Facades\App\Process;
+use Facades\App\Disk;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
+use Tests\Fake\DiskFake;
+use Tests\Fake\ProcessFake;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -32,6 +37,14 @@ abstract class TestCase extends BaseTestCase
 
             return $this;
         });
+
+        // Redirect any file creation to /storage/tests
+        Disk::swap(new DiskFake);
+
+        Process::swap(new ProcessFake);
+
+        // Avoid GitHub API by Default
+        Cache::put('updateAvailable', false, 1);
     }
 
     public function signIn(User $user = null)

@@ -8,20 +8,20 @@ use Symfony\Component\Process\Process as SymfonyProcess;
 
 class Process
 {
-    public static function deploy()
+    public function deploy()
     {
         // @TODO: test if I can just use ./vendor/bin/envoy
         $command = base_path('/vendor/bin/envoy') . ' run deploy';
 
-        return (new Process)->run($command);
+        return $this->run($command);
     }
 
-    public static function firewall()
+    public function firewall()
     {
-        return (new Process)->run('/etc/rc.d/rc.firewall', '/');
+        return $this->run('/etc/rc.d/rc.firewall', '/');
     }
 
-    public function run($command, $directory = null)
+    protected function run($command, $directory = null)
     {
         $directory = $directory ?: base_path();
 

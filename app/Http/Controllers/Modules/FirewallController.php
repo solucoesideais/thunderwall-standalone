@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Process;
+use Facades\App\Process;
 use Facades\App\Disk;
 use App\Http\Controllers\Controller;
 use App\Models\Expressive\Firewall;

@@ -6,7 +6,7 @@ use App\Models\User;
 use Facades\App\Disk;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
-use Tests\Fake\FakeDisk;
+use Tests\Fake\DiskFake;
 
 abstract class AuthenticatedTestCase extends DatabaseTestCase
 {
@@ -22,11 +22,5 @@ abstract class AuthenticatedTestCase extends DatabaseTestCase
         parent::setUp();
 
         $this->actingAs($this->user = create(User::class));
-
-        // Redirect any file creation to /storage/tests
-        Disk::swap(new FakeDisk);
-
-        // Avoid GitHub API by Default
-        Cache::put('updateAvailable', false, 1);
     }
 }

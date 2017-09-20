@@ -12,7 +12,7 @@ class ProcessFake extends Process
      */
     protected $commands = [];
 
-    public function run($command, $directory = null)
+    protected function run($command, $directory = null)
     {
         $this->commands[] = $command;
     }

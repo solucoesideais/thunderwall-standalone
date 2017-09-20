@@ -4,7 +4,7 @@ namespace Tests\Fake;
 
 use App\Disk;
 
-class FakeDisk extends Disk
+class DiskFake extends Disk
 {
 
     /**
