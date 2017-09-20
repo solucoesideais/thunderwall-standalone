@@ -34,8 +34,8 @@ Route::post('/version/update', 'VersionController@update');
 Route::group(['namespace' => 'Modules', 'prefix' => 'modules', 'middleware' => 'auth'], function () {
 
     // Firewall Module
-    Route::get('/firewall/edit', 'FirewallsController@edit');
-    Route::put('/firewall/{firewall}', 'FirewallsController@update');
+    Route::get('/firewall/edit', 'FirewallController@edit');
+    Route::put('/firewall/{firewall}', 'FirewallController@update');
 });
 
 Route::get('{any}', 'RedirectsController@index')->where('any', '.*');

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Process;
 use Facades\App\Disk;
 use App\Http\Controllers\Controller;
 use App\Models\Expressive\Firewall;
 use Illuminate\Http\Request;
 
-class FirewallsController extends Controller
+class FirewallController extends Controller
 {
     public function edit()
     {
@@ -24,6 +25,8 @@ class FirewallsController extends Controller
 
         // @TODO: should this be an event on File instead? Write every file as soon as they change.
         Disk::write($firewall);
+
+        Process::firewall();
 
         return redirect('/module/firewalls/edit')->with('success', 'Your firewall settings has been updated!');
     }

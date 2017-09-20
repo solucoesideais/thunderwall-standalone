@@ -6,6 +6,11 @@ use App\Disk;
 
 class FakeDisk extends Disk
 {
+
+    /**
+     * @TODO: maybe not touch the file at all and add a method ot assertFileCreated?
+     * @param $filepath
+     */
     protected function touch($filepath)
     {
         // Remove the trailing '/'
