@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "solucoesideais/thunderwall-standalone",
+    "description": "An Admin Panel for your Firewall services.",
+    "keywords": ["firewall", "thunderwall"],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.1.0",
         "fideloper/proxy": "~3.3",
         "kitetail/zttp": "^0.3.0",
         "laravel/envoy": "^1.3",

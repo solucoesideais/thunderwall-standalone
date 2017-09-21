@@ -21,7 +21,7 @@ class Process
         return $this->run('/etc/rc.d/rc.firewall', '/');
     }
 
-    protected function run($command, $directory = null)
+    public function run($command, $directory = null)
     {
         $directory = $directory ?: base_path();
 
