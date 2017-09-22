@@ -11,7 +11,8 @@ class VersionController extends Controller
     public function index(GitHub $gitHub)
     {
         $release = $gitHub->latestRelease();
-        if ($release == config('app.version')) {
+
+        if ($release['tag_name'] == config('app.version')) {
             Cache::forget('updateAvailable');
         }
 
