@@ -38,7 +38,6 @@ abstract class TestCase extends BaseTestCase
             return $this;
         });
 
-        // Redirect any file creation to /storage/tests
         Disk::swap(new DiskFake);
 
         Process::swap(new ProcessFake);

@@ -46,4 +46,15 @@ class FileTest extends DatabaseTestCase
             $this->file->content()
         );
     }
+
+    /**
+     * @test
+     */
+    public function a_file_has_checksum()
+    {
+        $file = create(File::class);
+        $file->sections()->create(['content' => '12345']);
+
+        $this->assertEquals('827ccb0eea8a706c4c34a16891f84e7b', $file->checksum);
+    }
 }

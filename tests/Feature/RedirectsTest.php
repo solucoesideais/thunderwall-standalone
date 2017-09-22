@@ -14,6 +14,11 @@ class RedirectsTest extends DatabaseTestCase
         $this->get('/files')
             ->assertFound()
             ->assertRedirect('/login');
+
+        $this->get('/anything')
+            ->assertFound()
+            ->assertRedirect('/login');
+
     }
 
     /**
@@ -23,6 +28,10 @@ class RedirectsTest extends DatabaseTestCase
     {
         $this->signIn()
             ->get('/login')
+            ->assertRedirect('/home');
+
+        $this->get('/anything')
+            ->assertFound()
             ->assertRedirect('/home');
     }
 }

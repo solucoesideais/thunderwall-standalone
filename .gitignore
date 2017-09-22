@@ -1,4 +1,5 @@
 /node_modules
+/public/report
 /public/hot
 /public/storage
 /storage/*.key

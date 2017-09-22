@@ -4,15 +4,22 @@ namespace App;
 
 use App\Exceptions\PermissionDeniedException;
 use App\Models\File;
+use ErrorException;
 
 class Disk
 {
+    /**
+     * Write a file into Disk. Creates if it doesn't exist.
+     *
+     * @param File $file
+     */
     public function write(File $file)
     {
         if (!is_file($file->path)) {
             $this->touch($file->path);
-            file_put_contents($file->path, $file->content());
         }
+
+        $this->put($file->path, $file->content());
     }
 
     public function checksum(File $file)
@@ -32,21 +39,37 @@ class Disk
     protected function touch($filepath)
     {
         try {
-            $this->makeFoldersForFile($filepath);
+            $this->recursiveMakeDirectory($filepath);
             touch($filepath);
-        } catch (\ErrorException $e) {
+        } catch (ErrorException $e) {
             throw new PermissionDeniedException($filepath);
         }
     }
 
-    protected function makeFoldersForFile($filepath)
+    /**
+     * Put the content into the file.
+     *
+     * @param $path
+     * @param $content
+     */
+    protected function put($path, $content)
+    {
+        file_put_contents($path, $content);
+    }
+
+    /**
+     * Create directories recursively for a given file.
+     *
+     * @param $filepath
+     */
+    protected function recursiveMakeDirectory($filepath)
     {
         try {
             $directory = dirname($filepath);
             if (!is_dir($directory)) {
                 mkdir($directory, 0755, true);
             }
-        } catch (\ErrorException $e) {
+        } catch (ErrorException $e) {
             throw new PermissionDeniedException($filepath);
         }
     }

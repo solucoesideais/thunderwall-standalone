@@ -32,7 +32,9 @@ class FirewallTest extends AuthenticatedTestCase
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('sections', ['file_id' => $file->id, 'content' => $content]);
+
         Disk::assertFileCreated('/etc/rc.d/rc.firewall');
+
         Process::assertExecuted('/etc/rc.d/rc.firewall');
     }
 }
