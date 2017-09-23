@@ -17,12 +17,24 @@ class DiskTest extends DatabaseTestCase
     {
         parent::setUp();
 
-        $this->path = base_path('/tests/Integration/file');
+        $this->path = base_path('tests/Integration/file');
 
         Disk::swap(new \App\Disk);
     }
 
     /**
+     * @test
+     */
+    public function file_is_writable()
+    {
+        $file = $this->createFileRecord($this->path, 'content');
+
+        $this->assertTrue(Disk::writable($file));
+    }
+
+    /**
+     * This test creates a file and leave it in the disk.
+     *
      * @test
      */
     public function create_new_file()
@@ -35,10 +47,12 @@ class DiskTest extends DatabaseTestCase
 
         $this->assertFileExists($this->path, "Failed to create file at [$this->path]");
 
-        $this->assertTrue(Disk::match($file));
+        $this->assertTrue(Disk::match($file), "Failed to assert [$file->path] contains [$file->content]");
     }
 
     /**
+     * This test uses the file created by the previous test to modify it and then remove it.
+     *
      * @test
      * @depends create_new_file
      */

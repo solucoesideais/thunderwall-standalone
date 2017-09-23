@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Collection sections
  * @property string path
  * @property string checksum
+ * @property string content
  */
 class File extends Model
 {
@@ -28,7 +29,7 @@ class File extends Model
         return $this->hasMany(Section::class, 'file_id');
     }
 
-    public function content()
+    public function getContentAttribute()
     {
         $this->loadMissing('sections');
 
@@ -40,7 +41,7 @@ class File extends Model
     {
         // @TODO: Maybe improve performance by adding a checksum column to the file table and keeping it up to date with content change
         // instead of recalculating it real time.
-        return md5($this->content());
+        return md5($this->content);
     }
 
     public function getSynchronizedAttribute()

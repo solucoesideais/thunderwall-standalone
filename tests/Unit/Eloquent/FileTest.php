@@ -43,7 +43,7 @@ class FileTest extends DatabaseTestCase
         // @TODO: deal with file separator
         $this->assertEquals(
             'section 1' . File::CONTENT_SEPARATOR . 'section 2',
-            $this->file->content()
+            $this->file->content
         );
     }
 

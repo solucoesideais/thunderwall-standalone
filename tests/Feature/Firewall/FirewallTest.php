@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Expressive\Firewall;
+use App\Models\File;
 use Facades\App\Disk;
 use Facades\App\Process;
 use Tests\AuthenticatedTestCase;
@@ -36,5 +37,22 @@ class FirewallTest extends AuthenticatedTestCase
         Disk::assertFileCreated('/etc/rc.d/rc.firewall');
 
         Process::assertExecuted('/etc/rc.d/rc.firewall');
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_see_when_firewall_file_is_not_writable()
+    {
+        Disk::swap(new class extends \App\Disk
+        {
+            public function isWritable($path)
+            {
+                return false;
+            }
+        });
+
+        $this->get('/modules/firewall/edit')
+            ->assertSeeText('Permission denied to file');
     }
 }

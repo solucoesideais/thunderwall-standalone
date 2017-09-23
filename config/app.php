@@ -15,7 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Thunderwall'),
 
-    'version' => '0.0.13',
+    'version' => '0.0.14',
 
     /*
     |--------------------------------------------------------------------------
@@ -229,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Disk' => Facades\App\Disk::class
     ],
 
 ];

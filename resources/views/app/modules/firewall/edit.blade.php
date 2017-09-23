@@ -5,6 +5,12 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
 
+                @if(! Disk::writable($file))
+                    <div class="alert alert-danger">
+                        <i class="fa fa-warning"></i> {{ __('Permission denied to file :file', ['file' => $file->path]) }}
+                    </div>
+                @endif
+
                 <form method="POST" action="/modules/firewall/{{ $file->id }}">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
@@ -27,11 +33,13 @@
                             @endforeach
                         </div>
 
-                        <div class="panel-footer">
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="{{ __('Apply') }}">
+                        @if(Disk::writable($file))
+                            <div class="panel-footer">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="{{ __('Apply') }}">
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
 
                 </form>

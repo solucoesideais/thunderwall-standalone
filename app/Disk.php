@@ -9,31 +9,39 @@ use ErrorException;
 class Disk
 {
     /**
+     * Check whether a file can be written in the Disk.
+     *
+     * @param File $file
+     * @return bool
+     */
+    public function writable(File $file)
+    {
+        return $this->isWritable($file->path);
+    }
+
+    /**
      * Write a file into Disk. Creates if it doesn't exist.
      *
      * @param File $file
      */
     public function write(File $file)
     {
-        if (!is_file($file->path)) {
+        if (! $this->fileExists($file->path)) {
             $this->touch($file->path);
         }
 
-        $this->put($file->path, $file->content());
+        $this->put($file->path, $file->content);
     }
 
-    public function checksum(File $file)
-    {
-        if (is_file($file->path)) {
-            return md5_file($file->path);
-        }
-
-        return md5('');
-    }
-
+    /**
+     * Check if the content in the database match the content in the Disk file.
+     *
+     * @param File $file
+     * @return bool
+     */
     public function match(File $file)
     {
-        return $this->checksum($file) == $file->checksum;
+        return $this->hash($file->path) == $file->checksum;
     }
 
     protected function touch($filepath)
@@ -66,11 +74,55 @@ class Disk
     {
         try {
             $directory = dirname($filepath);
-            if (!is_dir($directory)) {
+            if (! is_dir($directory)) {
                 mkdir($directory, 0755, true);
             }
         } catch (ErrorException $e) {
             throw new PermissionDeniedException($filepath);
         }
+    }
+
+    /**
+     * Return true if the file or directory exists.
+     *
+     * @param $path
+     * @return bool
+     */
+    protected function fileExists($path)
+    {
+        return file_exists($path);
+    }
+
+    protected function hash($path)
+    {
+        if ($this->fileExists($path)) {
+            return md5_file($path);
+        }
+
+        return md5('');
+    }
+
+    protected function isDirectory($path)
+    {
+        return is_dir($path);
+    }
+
+    /**
+     * Check if a path is writable.
+     *
+     * @param string $path
+     * @return bool
+     */
+    protected function isWritable($path)
+    {
+        // If the file or directory exists, we can just check if it's writable.
+        if ($this->fileExists($path)) {
+            return is_writable($path);
+        }
+
+        // Since it doesn't exist, let's check if we have permission in the parent directory
+        $directory = dirname($path);
+
+        return $this->isWritable($directory);
     }
 }
