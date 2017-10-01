@@ -7,4 +7,4 @@ sudo: false
 
 install: travis_retry composer install --no-interaction --prefer-dist --no-suggest
 
-script: chmod a+x ./tests/Integration/process.sh && vendor/bin/phpunit --verbose
+script: chmod a+x ./tests/Integration/stub/process.sh && vendor/bin/phpunit --verbose
