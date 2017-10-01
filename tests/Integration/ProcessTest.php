@@ -14,7 +14,7 @@ class ProcessTest extends TestCase
     {
         Process::swap(new \App\Process());
 
-        $output = Process::run(base_path('/tests/Integration/process.sh'));
+        $output = Process::run(base_path('/tests/Integration/stub/process.sh'));
 
         $this->assertContains('process output', $output);
     }

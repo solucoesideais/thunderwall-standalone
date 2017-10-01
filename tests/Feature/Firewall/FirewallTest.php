@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Jobs\ProcessFile;
 use App\Models\Expressive\Firewall;
 use App\Models\File;
 use Facades\App\Disk;
 use Facades\App\Process;
+use Illuminate\Support\Facades\Queue;
 use Tests\AuthenticatedTestCase;
 
 class FirewallTest extends AuthenticatedTestCase
@@ -36,7 +38,7 @@ class FirewallTest extends AuthenticatedTestCase
 
         Disk::assertFileCreated('/etc/rc.d/rc.firewall');
 
-        Process::assertExecuted('/etc/rc.d/rc.firewall');
+        Queue::assertPushed(ProcessFile::class);
     }
 
     /**

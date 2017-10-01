@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Queue;
 use Tests\Fake\DiskFake;
 use Tests\Fake\ProcessFake;
 
@@ -41,6 +42,8 @@ abstract class TestCase extends BaseTestCase
         Disk::swap(new DiskFake);
 
         Process::swap(new ProcessFake);
+
+        Queue::fake();
 
         // Avoid GitHub API by Default
         Cache::put('updateAvailable', false, 1);

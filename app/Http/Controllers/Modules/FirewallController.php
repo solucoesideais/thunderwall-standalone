@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Jobs\ProcessFile;
 use Facades\App\Process;
 use Facades\App\Disk;
 use App\Http\Controllers\Controller;
@@ -26,8 +27,8 @@ class FirewallController extends Controller
         // @TODO: should this be an event on File instead? Write every file as soon as they change.
         Disk::write($firewall);
 
-        Process::firewall();
+        dispatch(new ProcessFile($firewall));
 
-        return redirect('/module/firewalls/edit')->with('success', 'Your firewall settings has been updated!');
+        return redirect('/module/firewalls/edit')->with('success', __('Your changes will be applied in a few seconds'));
     }
 }

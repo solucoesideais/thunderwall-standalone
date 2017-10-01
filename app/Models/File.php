@@ -12,12 +12,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string path
  * @property string checksum
  * @property string content
+ * @property string process
  */
 class File extends Model
 {
     const CONTENT_SEPARATOR = PHP_EOL . PHP_EOL;
 
-    protected $fillable = ['name', 'path'];
+    protected $guarded = [];
 
     public function route($subroute = null)
     {

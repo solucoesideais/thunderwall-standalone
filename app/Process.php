@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Exceptions\ProcessFailedException;
+use App\Models\File;
 use Symfony\Component\Process\Exception\ProcessFailedException as SymfonyProcessFailedException;
 use Symfony\Component\Process\Process as SymfonyProcess;
 
@@ -16,11 +17,23 @@ class Process
         return $this->run($command);
     }
 
-    public function firewall()
-    {
-        return $this->run('/etc/rc.d/rc.firewall', '/');
+    /**
+     * Run the file post-script process.
+     *
+     * @param File $file
+     * @return string
+     */
+    public function file(File $file) {
+        return $this->run($file->process);
     }
 
+    /**
+     * Run the given command.
+     *
+     * @param $command
+     * @param null $directory
+     * @return string
+     */
     public function run($command, $directory = null)
     {
         $directory = $directory ?: base_path();
